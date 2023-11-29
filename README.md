@@ -4,7 +4,7 @@ This project combines a FastAPI API for text translation and a Vue.js frontend f
 
 ## Features
 
-- **Translation API Endpoint:** Provides a RESTful API endpoint for translating text using the T5-small model.
+- **Translation API Endpoint:** Provides a RESTful API endpoint for translating text using the facebook/mbart-large-50-many-to-many-mmt model.
 - **Vue.js Video Player:** A frontend application built with Vue.js that includes a video player with subtitle selection and translation features.
 
 ## Getting Started
