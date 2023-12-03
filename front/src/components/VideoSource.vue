@@ -16,13 +16,13 @@ import { ref } from "vue";
 const emit = defineEmits(["open"])
 const fileLink = ref();
 const rules = [
-  (value) => {
+  (value:string) => {
     if (value) return true;
 
     return "You must enter a first name.";
   },
 ];
-const open = (link)=>{
+const open = (link: string)=>{
   emit("open", link)
 }
 </script>

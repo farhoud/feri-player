@@ -68,7 +68,7 @@ const handleMouseUp = () => {
     // }
   }
 };
-const translate = async (text) => {
+const translate = async (text:string) => {
   try {
     const response = await fetch(`http://127.0.0.1:8000/translate/${text}`);
     const data = await response.json();

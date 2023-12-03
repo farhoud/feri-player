@@ -59,17 +59,17 @@ const initVideoPlayer = () => {
     },
   };
 
-  const vjsplayer: videojs.Player = videojs(player.value, options);
+  const vjsplayer: ReturnType<typeof videojs> = videojs(player.value, options);
 
-  const fullscreenButton = vjsplayer
-    .getChild("ControlBar")
-    .getChild("FullscreenToggle")
-    .el();
+  const fullscreenButton = vjsplayer.getChild("ControlBar")?.getChild("FullscreenToggle")?.el();
+  if (fullscreenButton){
+    var newf = fullscreenButton?.cloneNode(true);
+    fullscreenButton.parentNode?.replaceChild(newf, fullscreenButton);
+    newf.addEventListener("click", toggleFullscreen);
+  }
 
   // Add a click event listener to the fullscreen button
-  var newf = fullscreenButton.cloneNode(true);
-  fullscreenButton.parentNode.replaceChild(newf, fullscreenButton);
-  newf.addEventListener("click", toggleFullscreen);
+
 
   // Add event listener for fullscreenchange event
   document.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -77,6 +77,7 @@ const initVideoPlayer = () => {
   document.addEventListener("mozfullscreenchange", handleFullscreenChange);
   document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
+  // @ts-ignore
   const customButton = vjsplayer.controlBar.addChild("button", {
     text: "Custom Button",
     className: "vjs-icon-subtitles",
@@ -112,6 +113,7 @@ const loadSrt = async () => {
     });
   });
 };
+
 const toggleFullscreen = () => {
   if (!isFullscreen.value) {
     // Enter fullscreen
@@ -128,21 +130,31 @@ const toggleFullscreen = () => {
     // Exit fullscreen
     if (document.exitFullscreen) {
       document.exitFullscreen();
+    // @ts-ignore
     } else if (document.mozCancelFullScreen) {
+    // @ts-ignore  
       document.mozCancelFullScreen();
+      // @ts-ignore
     } else if (document.webkitExitFullscreen) {
+      // @ts-ignore
       document.webkitExitFullscreen();
+      // @ts-ignore
     } else if (document.msExitFullscreen) {
+      // @ts-ignore
       document.msExitFullscreen();
     }
   }
 };
 const handleFullscreenChange = () => {
   // Update the fullscreen state
+  
   const _isFullscreen = !!(
     document.fullscreenElement ||
+    // @ts-ignore
     document.webkitFullscreenElement ||
+    // @ts-ignore
     document.mozFullScreenElement ||
+    // @ts-ignore
     document.msFullscreenElement
   );
   isFullscreen.value = _isFullscreen;
