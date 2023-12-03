@@ -38,33 +38,34 @@ const handleMouseUp = () => {
   if (selection) {
     emit("select");
     const selectedText = selection.toString().trim();
-    if (selectedText.length > 0) {
-      const textNode = selection.anchorNode;
+    translate(selectedText);
+    // if (selectedText.length > 0) {
+    //   const textNode = selection.anchorNode;
 
-      if (textNode) {
-        const textContent = textNode.textContent || "";
-        const selStart = Math.min(
-          selection.anchorOffset,
-          selection.focusOffset
-        );
-        const selEnd = Math.max(selection.anchorOffset, selection.focusOffset);
-        console.log(textContent);
-        console.log(selection.anchorOffset);
-        const wordStart = textContent.lastIndexOf(" ", selStart) + 1;
-        console.log(selection.focusOffset);
-        console.log(selection);
-        let wordEnd = textContent.indexOf(" ", selEnd);
-        wordEnd = wordEnd !== -1 ? wordEnd : textContent.length - 1;
-        const correctedWord = textContent.slice(wordStart, wordEnd);
-        selection.removeAllRanges();
-        const range = document.createRange();
-        range.setStart(textNode, wordStart);
-        range.setEnd(textNode, wordEnd);
-        selection.addRange(range);
-        translate(correctedWord);
-        console.log(correctedWord);
-      }
-    }
+    //   if (textNode) {
+    //     const textContent = textNode.textContent || "";
+    //     const selStart = Math.min(
+    //       selection.anchorOffset,
+    //       selection.focusOffset
+    //     );
+    //     const selEnd = Math.max(selection.anchorOffset, selection.focusOffset);
+    //     console.log(textContent);
+    //     console.log(selection.anchorOffset);
+    //     const wordStart = textContent.lastIndexOf(" ", selStart) + 1;
+    //     console.log(selection.focusOffset);
+    //     console.log(selection);
+    //     let wordEnd = textContent.indexOf(" ", selEnd);
+    //     wordEnd = wordEnd !== -1 ? wordEnd : textContent.length - 1;
+    //     const correctedWord = textContent.slice(wordStart, wordEnd);
+    //     selection.removeAllRanges();
+    //     const range = document.createRange();
+    //     range.setStart(textNode, wordStart);
+    //     range.setEnd(textNode, wordEnd);
+    //     selection.addRange(range);
+    //     translate(correctedWord);
+    //     console.log(correctedWord);
+    //   }
+    // }
   }
 };
 const translate = async (text) => {

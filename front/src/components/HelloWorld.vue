@@ -15,6 +15,7 @@
         srclang="fa"
         label="Persian"
         default
+        :ref="asd"
       />
     </video>
     <div class="overlay-text" @click="myPrint">a;sldfkas;dlfkjas;dfljksdf</div>

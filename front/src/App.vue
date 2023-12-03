@@ -1,22 +1,24 @@
 <template>
   <v-app>
     <v-main>
-      <video-source @open="(link)=>{url=link}">
-
-      </video-source>
-      <HelloWorld
+      <video-source @open="openHandler"/>
+      <video-player
         v-if="url"
-        subtitle-source="/episode4.vtt"
         :video-source="url"
+        :ref="player"
       />
     </v-main>
   </v-app>
 </template>
 
 <script setup lang="ts">
-import HelloWorld from "@/components/VideoPlayer.vue";
+import VideoPlayer from "@/components/VideoPlayer.vue";
 import videoSource from "@/components/VideoSource.vue"
 import { ref } from "vue";
 
 const url = ref()
+const player = ref()
+const openHandler = (link:string)=>{
+  url.value=link
+}
 </script>

@@ -21,10 +21,10 @@
 <script setup lang="ts">
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import { onMounted } from "vue";
-import { ref } from "vue";
+import { getCurrentInstance, onMounted } from "vue";
+import { ref,watch } from "vue";
 import toWebVTT from "srt-webvtt";
-import Subtitle from "./Subtitle"
+import Subtitle from "@/components/Subtitle.vue"
 
 const props = defineProps({
   videoSource: {
@@ -88,14 +88,6 @@ const initVideoPlayer = () => {
   // Add Video.js event listener for fullscreenchange event
   vjsplayer.on("fullscreenchange", handleFullscreenChange);
 
-  // Track event listener
-  vjsplayer.on("loadedmetadata", () => {
-    const track = vjsplayer.textTracks()[0];
-    track.addEventListener("cuechange", () => {
-      const activeCue = track.activeCues[0];
-      text.value = activeCue.text;
-    });
-  });
   vjsplayer.on('play',()=>{
     playing.value = true
   })
@@ -156,6 +148,8 @@ const handleFullscreenChange = () => {
   isFullscreen.value = _isFullscreen;
   vjsRef.value.fill(_isFullscreen);
 };
+
+watch(()=>props.videoSource,(src)=>{vjsRef.value.src({ type: 'video/mp4', src })})
 </script>
 <style scoped>
 .video-container {
